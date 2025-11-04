@@ -21,11 +21,12 @@ if (!fs.existsSync(dirCodes)) {
 //format is language and content is code
 const generateFile = (format, content) => {
     const jobID = uuidv4();
-    console.log(jobID);
+    console.log(jobID);//e863a24e-ecbc-4b9b-ba12-d4b5f4645da1
     const filename = `${jobID}.${format}`;
-    console.log(filename);
+    console.log(filename);//e863a24e-ecbc-4b9b-ba12-d4b5f4645da1.cpp
     const filePath = path.join(dirCodes, filename);
     fs.writeFileSync(filePath, content);
+    //D:\codekaro\backend\codes\e863a24e-ecbc-4b9b-ba12-d4b5f4645da1.cpp
     //code injected to filepath file 
     console.log(filePath);
     return filePath;

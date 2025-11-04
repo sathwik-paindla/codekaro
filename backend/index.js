@@ -4,6 +4,7 @@ const jwt=require('jsonwebtoken');
 const bcrypt=require('bcryptjs');
 const User = require('./models/User');
 const { generateFile } = require('./generateFile');
+const { executeCpp } = require('./executeCpp');
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.get("/", (req, res) => {
     );
 });
 
-app.post("/run",(req,res)=>{
+app.post("/run",async(req,res)=>{
     const {code,language='cpp'}=req.body;
     //default language is cpp if user not selected any language
 
@@ -31,8 +32,8 @@ app.post("/run",(req,res)=>{
     try{
         const filePath = generateFile(language, code);
         //console.log(filePath);
-        //const output = await executeCpp(filePath);
-        res.status(200).json({filePath});
+        const output = await executeCpp(filePath);
+        res.status(200).json({filePath,output});
     }catch(error){
         res.status(500).json({ error: error });
     }
