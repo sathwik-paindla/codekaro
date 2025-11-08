@@ -6,6 +6,7 @@ const User = require('./models/User');
 const { generateFile } = require('./generateFile');
 const { executeCpp } = require('./executeCpp');
 
+
 const app = express();
 
 //use of middlewares to accept json and urlencoded data
@@ -22,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/run",async(req,res)=>{
-    const {code,language='cpp'}=req.body;
+    const {code,language='cpp',input=''}=req.body;
     //default language is cpp if user not selected any language
 
     if(code===undefined){
@@ -32,7 +33,8 @@ app.post("/run",async(req,res)=>{
     try{
         const filePath = generateFile(language, code);
         //console.log(filePath);
-        const output = await executeCpp(filePath);
+        const output = await executeCpp(filePath,input);
+        //console.log(output);
         res.status(200).json({filePath,output});
     }catch(error){
         res.status(500).json({ error: error });
@@ -168,6 +170,6 @@ app.post('/register',async (req,res)=>{
     
 });
 
-app.listen(3000,()=>{
-    console.log("Server is running on port 3000");
+app.listen(4000,()=>{
+    console.log("Server is running on port 4000");
 })
