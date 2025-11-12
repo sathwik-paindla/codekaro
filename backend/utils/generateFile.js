@@ -10,7 +10,7 @@ let uuidv4; // Intial declaration
 
 
 const dirCodes = path.join(__dirname, 'codes');
-//here _dirname ->....\backend
+//here _dirname ->....\backend\utils
 //dirCodes->...\backend\codes
 //here only path is created but not directory
 
@@ -26,7 +26,7 @@ const generateFile = (format, content) => {
     console.log(filename);//e863a24e-ecbc-4b9b-ba12-d4b5f4645da1.cpp
     const filePath = path.join(dirCodes, filename);
     fs.writeFileSync(filePath, content);
-    //D:\codekaro\backend\codes\e863a24e-ecbc-4b9b-ba12-d4b5f4645da1.cpp
+    //D:\codekaro\backend\utils\codes\e863a24e-ecbc-4b9b-ba12-d4b5f4645da1.cpp
     //code injected to filepath file 
     console.log(filePath);
     return filePath;

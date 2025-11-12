@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import React ,{ useState } from 'react';
 import axios from 'axios'
-import ProblemPage from './pages/Compiler';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Compiler from './pages/Compiler';

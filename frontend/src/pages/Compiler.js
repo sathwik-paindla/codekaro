@@ -10,7 +10,8 @@ function Compiler() {
   const handleRun=async()=>{
     const payload={
       language:'cpp',
-      code
+      code,
+      input
     };
     const res=await axios.post("http://localhost:4000/run",payload);
     console.log(res.data.output);
@@ -20,8 +21,7 @@ function Compiler() {
   const handleSubmit=async()=>{
     const payload={
       language,
-      code,
-      input
+      code
     };
     const outputSubmit=await axios.post("http://localhost:4000/run",payload);
     //console.log(code);
