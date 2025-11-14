@@ -76,7 +76,15 @@ exports.submitSolution = async (req, res) => {
         let testResults = [];
 
         for (const testCase of problem.testCases) {
-            const output = await executeCpp(filePath, testCase.input);
+            let output;
+            if(language==='cpp')
+            output = await executeCpp(filePath, testCase.input);
+            if(language==='c')
+            output = await executeC(filePath,testCase.input);
+            if(language==='java')
+            output = await executeJava(filePath,testCase.input);
+            if(language==='python')
+            output = await executePython(filePath,testCase.input);
             const trimmedOutput = output.trim();
             const expected = testCase.expectedOutput.trim();
 
