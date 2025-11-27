@@ -1,6 +1,7 @@
 const Problem = require('../models/Problem');
 const { generateFile } = require('../utils/generateFile');
 const { executeCpp } = require('../utils/executeCpp');
+const Submission = require('../models/Submission');
 
 // ✅ Add a new problem
 exports.addProblem = async (req, res) => {
@@ -61,6 +62,7 @@ exports.submitSolution = async (req, res) => {
     try {
         const { code, language = 'cpp'} = req.body;
         const {problemId}=req.params;
+        const userId=req.user.id;
 
         if (!code) {
             return res.status(400).json({ message: 'Code is required' });
@@ -71,9 +73,10 @@ exports.submitSolution = async (req, res) => {
             return res.status(404).json({ message: 'Problem not found' });
         }
 
+        //need to run test cases
         const filePath = generateFile(language, code);
         let passedCount = 0;
-        let testResults = [];
+        let testResults = [];//shows result of each test case i.e.passed or not 
 
         for (const testCase of problem.testCases) {
             let output;
@@ -104,11 +107,22 @@ exports.submitSolution = async (req, res) => {
                 ? 'Accepted'
                 : `Failed ${problem.testCases.length - passedCount}/${problem.testCases.length} test cases`;
 
+        const submission=await Submission.create({
+            userId,
+            problemId,
+            code,
+            language,
+            verdict,
+            testResults
+        });
+
         res.status(200).json({
+            message: "Submission Evaluated",
             problem: problem.title,
             totalCases: problem.testCases.length,
             passedCount,
             verdict,
+            submissionId: submission._id,
             testResults
         });
     } catch (error) {

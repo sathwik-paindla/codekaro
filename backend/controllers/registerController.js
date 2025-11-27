@@ -55,7 +55,8 @@ exports.registerUser=async(req,res)=>{
 
     res.status(200).json({
         message:"You have successfully registered",
-        user
+        user,
+        token
     });
 
     }

@@ -1,28 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import React ,{ useState } from 'react';
-import axios from 'axios'
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Compiler from './pages/Compiler';
-
-function App() {
-  
+import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 
-  return (
-    <Router>
-      
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<h1>Home Page</h1>} />
-        <Route path="/problems" element={<Compiler/>} />
-        <Route path="/submissions" element={<h1>My Submissions</h1>} />
-        <Route path="/login" element={<h1>Login Page</h1>} />
-        <Route path="/signup" element={<h1>Sign Up Page</h1>} />
-      </Routes>
-    </Router>
-  );
+
+export default function App() {
+return (
+  <Router>
+<Routes>
+<Route path="/" element={<Navigate to="/login" />} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+
+</Routes>
+</Router>
+);
 }
 
-export default App;

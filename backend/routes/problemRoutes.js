@@ -7,6 +7,8 @@ const {
     submitSolution
 } = require('../controllers/problemController');
 
+const auth=require('../middlewares/authMiddleware');
+
 // Admin or instructor adds a problem
 router.post('/add', addProblem);
 
@@ -15,6 +17,6 @@ router.get('/', getAllProblems);
 router.get('/:id', getProblemById);
 
 // Submit and evaluate code
-router.post('/:problemId/submit', submitSolution);
+router.post('/:problemId/submit', auth, submitSolution);
 
 module.exports = router;

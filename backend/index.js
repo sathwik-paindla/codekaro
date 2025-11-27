@@ -6,6 +6,7 @@ const cors=require('cors');
 const authRoutes=require('./routes/authRoutes');
 const codeRoutes=require('./routes/codeRoutes');
 const problemRoutes = require('./routes/problemRoutes');
+const submissionRoutes=require('./routes/submissionRoutes');
 
 
 
@@ -21,8 +22,9 @@ DBConnection();
 
 //Routes
 app.use('/api/auth',authRoutes);
-app.use('/api/code',codeRoutes);
-app.use('/api/problems', problemRoutes);
+app.use('/api/code',codeRoutes);//for compiler only
+app.use('/api/problems', problemRoutes);//for submissions
+app.use('/api/submissions',submissionRoutes);
 
 app.get("/", (req, res) => {
     res.status(200).json(
