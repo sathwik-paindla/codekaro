@@ -83,12 +83,14 @@ export default function ProblemDetails() {
           value={language}
           onChange={handleLanguageChange}
           className="mb-3 p-2 border rounded"
+          style={{inlineSize:"fit-content"}}
         >
           <option value="cpp">C++</option>
           <option value="c">C</option>
           <option value="java">Java</option>
           <option value="python">Python</option>
         </select>
+
 
         {/*Code Editor*/}
         <CodeEditor code={code} setCode={setCode} language={language} />
@@ -104,31 +106,42 @@ export default function ProblemDetails() {
         </div>
 
 
-        {/*Verdict and test results after SUBMISSION of code*/}
+        {/* Verdict and test results after SUBMISSION of code*/}
         {result && (
-          <div className="mt-4 bg-white p-3 rounded shadow">
-
-            <h4 className="font-semibold">Verdict: {result.verdict}</h4>{/*Accepted or Failed*/}
-
-            <p>Passed {result.passedCount} / {result.totalCases}</p>
-
-            <div className="mt-2 space-y-2">
-              {result.testResults.map((t, i) => (
-                <div key={i} className="p-2 border rounded">
-                  {/*Result of each test case(will modify later with only test case result i.e.whether passed or failed*/}
-
-                  <div><strong>Input:</strong> {t.input}</div>
-                  <div><strong>Expected:</strong> {t.expectedOutput}</div>
-                  <div><strong>Your Output:</strong> {t.userOutput}</div>
-                  <div><strong>Passed:</strong> {t.passed ? "Yes" : "No"}</div>
+            <div className="mt-4 bg-white p-3 rounded shadow">
+            
+            <h4 className="font-semibold text-lg">
+            Verdict:{" "}
+            <span className={`${
+            result.verdict === "Accepted" ? "text-green-600" : "text-red-600"
+            }`}
+            >
+            {result.verdict}
+            </span>
+            </h4>
+            
+            <p className="font-semibold">Passed {result.passedCount} / {result.totalCases}</p>
+            
+            <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+            {result.testResults.map((t, i) => (
+                <div 
+                key={i}
+                className={`px-3 py-2 rounded text-center text-sm font-semibold ${
+                t.passed ? "bg-green-500 text-white" : "bg-red-600 text-white"
+                }`}
+                >
+                Test {i + 1}
                 </div>
-              ))}
+                // Here if test case x passed-->green colour else red colour 
+            ))}
             </div>
 
-          </div>
+            </div>  
         )}
-
+                
       </div>
-    </div>
+
+    </div>  
   );
+    
 }
