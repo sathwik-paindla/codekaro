@@ -5,6 +5,11 @@ import Layout from "./components/Layout";
 import { useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProblemsList from "./pages/ProblemList";
+import ProblemDetails from "./pages/ProblemDetails";
+import AddProblem from "./pages/AddProblem";
+import ProblemSubmissions from "./pages/ProblemSubmissions";
+import UserSubmissions from "./pages/UserSubmissions";
+import SingleSubmission from "./pages/SingleSubmission";
 
 
 
@@ -35,14 +40,47 @@ return (
             </>
             <ProblemsList/>
           </ProtectedRoute>
-        }/>
+          }/>
+
+          <Route path="/problems/:id"
+        element={
+          <ProtectedRoute>
+            <ProblemDetails/>
+          </ProtectedRoute>
+          }/>
+
+          <Route path="/problems/add"
+        element={
+          <ProtectedRoute>
+            <AddProblem/>
+          </ProtectedRoute>
+          }/>
+
+          <Route path="/problems/:id/submissions"
+        element={
+          <ProtectedRoute>
+            <ProblemSubmissions/>
+          </ProtectedRoute>
+          }/>
+
+          <Route path="/submissions"
+        element={
+          <ProtectedRoute>
+            <UserSubmissions/>
+          </ProtectedRoute>
+          }/>
+
+          <Route path="/submission/:id"
+        element={
+          <ProtectedRoute>
+            <SingleSubmission/>
+          </ProtectedRoute>
+          }/>
+
+
 
         </Route>
-
-        
-
-        
-
+  
     </Routes>
    
   </BrowserRouter>
