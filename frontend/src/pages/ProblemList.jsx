@@ -2,11 +2,21 @@ import React, { useEffect, useState } from "react";
 
 import { getAllProblemsApi } from "../api/problemApi";
 import { Link } from "react-router-dom";
+import CodeEditor from "../components/CodeEditor";
 
 export default function ProblemsList() {
 
   //State for problems
   const [problems, setProblems] = useState([]);
+
+  const difficultyStyle=(difficulty)=>{
+  if(difficulty=="Easy")
+    return "bg-green-100 text-green-700 border border-green-300 px-2 py-1 rounded-full text-sm font-semibold w-fit";
+  if(difficulty=="Medium")
+    return "bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-1 rounded-full text-sm font-semibold w-fit";
+  if(difficulty=="Hard")
+    return "bg-red-100 text-red-700 border border-red-300 px-2 py-1 rounded-full text-sm font-semibold w-fit";
+  };
 
   // useEffect runs on component mount
   useEffect(() => {
@@ -23,6 +33,8 @@ export default function ProblemsList() {
     //runs when component unmounts
     return () => (mounted = false);
   }, []); // Empty dependency i.e. runs only once when component mounts
+
+
 
   return (
 
@@ -67,7 +79,11 @@ export default function ProblemsList() {
         </div>
 
         
-        <div className="text-gray-600">{p.difficulty}</div>
+        <div>
+          <span className={difficultyStyle(p.difficulty)}>
+            {p.difficulty}
+          </span>
+        </div>
 
         
         <div className="text-right space-x-4">
@@ -80,7 +96,7 @@ export default function ProblemsList() {
 
           <Link
             to={`/problems/${p._id}/submissions`}
-            className="text-gray-600 hover:underline"
+            className="text-green-600 hover:underline"
           >
             Submissions
           </Link>
